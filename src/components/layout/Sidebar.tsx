@@ -1,22 +1,38 @@
-// import { ScrollArea } from "./components/ui/scroll-area";
+import { useSelection } from "@/context/SelectionContext";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function Sidebar() {
+  const { selected } = useSelection();
+
   return (
-    <div></div>
-    // <ScrollArea className="h-full p-4">
-    //   <div className="space-y-4">
-    //     <h1 className="text-xl font-semibold">WildSphere</h1>
+    <ScrollArea className="h-full p-4">
+      {!selected ? (
+        <p className="text-sm text-muted-foreground">
+          Select an observation on the globe to see details.
+        </p>
+      ) : (
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              {selected.taxon?.preferred_common_name ?? selected.species_guess}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <p className="text-sm">
+              Scientific name: <strong>{selected.taxon?.name}</strong>
+            </p>
 
-    //     <p className="text-sm text-muted-foreground">
-    //       Explore wildlife observations across the globe.
-    //     </p>
-
-    //     {/* Aquí luego van:
-    //         - Search (Command)
-    //         - Animal details
-    //         - Skeletons
-    //     */}
-    //   </div>
-    // </ScrollArea>
+            {selected.photos[0] && (
+              <img
+                src={selected.photos[0].url.replace("square", "medium")}
+                alt={selected.species_guess}
+                className="rounded-md"
+              />
+            )}
+          </CardContent>
+        </Card>
+      )}
+    </ScrollArea>
   );
 }

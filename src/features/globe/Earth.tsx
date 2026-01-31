@@ -16,13 +16,8 @@ export function Earth() {
         <sphereGeometry args={[1, 64, 64]} />
         <meshStandardMaterial map={texture} />
       </mesh>
-
       {!isLoading &&
-        data?.results.map((obs) => {
-          const [lng, lat] = obs.geojson.coordinates;
-
-          return <Hotspot key={obs.id} lat={lat} lng={lng} />;
-        })}
+        data?.results.map((obs) => <Hotspot key={obs.id} observation={obs} />)}
     </>
   );
 }
