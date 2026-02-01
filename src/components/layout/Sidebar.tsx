@@ -6,33 +6,37 @@ export function Sidebar() {
   const { selected } = useSelection();
 
   return (
-    <ScrollArea className="h-full p-4">
-      {!selected ? (
-        <p className="text-sm text-muted-foreground">
-          Select an observation on the globe to see details.
-        </p>
-      ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {selected.taxon?.preferred_common_name ?? selected.species_guess}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <p className="text-sm">
-              Scientific name: <strong>{selected.taxon?.name}</strong>
-            </p>
+  <ScrollArea className="h-full p-4">
+  {!selected ? (
+    <p className="text-sm text-zinc-400">
+      Select an observation on the globe.
+    </p>
+  ) : (
+    <Card className="bg-zinc-900 border-white/10">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base">
+          {selected.taxon?.preferred_common_name ??
+            selected.species_guess}
+        </CardTitle>
+      </CardHeader>
 
-            {selected.photos[0] && (
-              <img
-                src={selected.photos[0].url.replace("square", "medium")}
-                alt={selected.species_guess}
-                className="rounded-md"
-              />
-            )}
-          </CardContent>
-        </Card>
-      )}
-    </ScrollArea>
+      <CardContent className="space-y-3 text-sm">
+        <p className="text-zinc-400">
+          <span className="text-white">
+            {selected.taxon?.name}
+          </span>
+        </p>
+
+        {selected.photos[0] && (
+          <img
+            src={selected.photos[0].url.replace("square", "medium")}
+            className="rounded-md"
+          />
+        )}
+      </CardContent>
+    </Card>
+  )}
+</ScrollArea>
+
   );
 }

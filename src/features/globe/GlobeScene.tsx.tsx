@@ -4,16 +4,21 @@ import { Earth } from "./Earth";
 
 export function GlobeScene() {
   return (
-    <Canvas camera={{ position: [0, 0, 3], fov: 45 }} gl={{ antialias: true }}>
-      {/* Lights */}
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 5, 5]} intensity={1} />
+    <Canvas
+      className="h-full w-full"
+      camera={{ position: [0, 0, 2.2], fov: 50 }}>
+      {/* Luz base */}
+      <ambientLight intensity={0.8} />
 
-      {/* Controls */}
-      <OrbitControls enablePan={false} minDistance={2} maxDistance={5} />
+      {/* Luz tipo sol */}
+      <directionalLight position={[5, 3, 5]} intensity={1.5} />
 
-      {/* Earth */}
+      {/* Relleno suave */}
+      <hemisphereLight intensity={0.4} groundColor="#000000" />
+
       <Earth />
+
+      <OrbitControls enablePan={false} minDistance={1.8} maxDistance={3} />
     </Canvas>
   );
 }

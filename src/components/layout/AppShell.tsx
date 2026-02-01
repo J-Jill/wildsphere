@@ -1,19 +1,28 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 type AppShellProps = {
   sidebar: ReactNode;
+  overlay?: ReactNode;
   children: ReactNode;
 };
 
-export function AppShell({ sidebar, children }: AppShellProps) {
+export function AppShell({ sidebar, overlay, children }: AppShellProps) {
   return (
-    <div className="h-screen w-screen overflow-hidden bg-background text-foreground">
-      <div className="flex h-full">
-        {/* Sidebar */}
-        <aside className="w-[360px] border-r border-border">{sidebar}</aside>
+    <div className="h-screen w-screen flex flex-col overflow-hidden bg-black text-white">
+      {/* Top bar */}
+      <div className="h-16 shrink-0 border-b border-white/10 bg-zinc-950 flex items-center px-4">
+        {sidebar}
+      </div>
 
-        {/* Main experience */}
-        <main className="relative flex-1">{children}</main>
+      {/* Main area */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* LEFT: Card */}
+        <div className="w-[420px] shrink-0 border-r border-white/10 bg-zinc-950/95 backdrop-blur p-4 overflow-y-auto">
+          {overlay}
+        </div>
+
+        {/* RIGHT: Globe */}
+        <div className="flex-1 relative h-full overflow-hidden">{children}</div>
       </div>
     </div>
   );

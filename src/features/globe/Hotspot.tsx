@@ -1,18 +1,24 @@
-import { latLngToVector3 } from "@/utils/geo";
+import { memo, useMemo } from "react";
 import { useSelection } from "@/context/SelectionContext";
 import type { InatObservation } from "@/types/inaturalist";
+import { latLngToVector3 } from "@/utils/geo";
 
 type HotspotProps = {
   observation: InatObservation;
 };
 
-export function Hotspot({ observation }: HotspotProps) {
+function HotspotBase({ observation }: HotspotProps) {
   const { selectObservation } = useSelection();
 
-  if (!observation?.geojson) return null;
+  const coords = observation?.geojson?.coordinates;
 
-  const [lng, lat] = observation.geojson.coordinates;
-  const position = latLngToVector3(lat, lng, 1.01);
+  const position = useMemo(() => {
+    if (!coords) return null;
+    const [lng, lat] = coords;
+    return latLngToVector3(lat, lng, 1.01);
+  }, [coords]);
+
+  if (!position) return null;
 
   return (
     <mesh position={position} onClick={() => selectObservation(observation)}>
@@ -21,3 +27,5 @@ export function Hotspot({ observation }: HotspotProps) {
     </mesh>
   );
 }
+
+export const Hotspot = memo(HotspotBase);

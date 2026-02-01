@@ -2,8 +2,9 @@ import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
 import { Hotspot } from "./Hotspot";
 import { useObservations } from "@/hooks/useObservations";
+import { memo } from "react";
 
-export function Earth() {
+function EarthBase() {
   const texture = useLoader(TextureLoader, "/textures/earth_daymap.jpg");
 
   const { data, isLoading, isError } = useObservations();
@@ -21,3 +22,4 @@ export function Earth() {
     </>
   );
 }
+export const Earth = memo(EarthBase);
