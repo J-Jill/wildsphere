@@ -22,7 +22,9 @@ export function AppShell({ sidebar, overlay, children }: AppShellProps) {
         </div>
 
         {/* RIGHT: Globe */}
-        <div className="flex-1 relative h-full overflow-hidden">{children}</div>
+        <div className="flex-1 relative h-full overflow-hidden bg-black">
+          {children}
+        </div>
       </div>
     </div>
   );

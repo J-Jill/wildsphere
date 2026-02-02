@@ -4,9 +4,8 @@ import { Hotspot } from "./Hotspot";
 import { useObservations } from "@/hooks/useObservations";
 import { memo } from "react";
 
-function EarthBase() {
+function EarthBase({ active }: { active: boolean }) {
   const texture = useLoader(TextureLoader, "/textures/earth_daymap.jpg");
-
   const { data, isLoading, isError } = useObservations();
 
   if (isError) return null;
@@ -17,9 +16,13 @@ function EarthBase() {
         <sphereGeometry args={[1, 64, 64]} />
         <meshStandardMaterial map={texture} />
       </mesh>
+
       {!isLoading &&
-        data?.results.map((obs) => <Hotspot key={obs.id} observation={obs} />)}
+        data?.results.map((obs) => (
+          <Hotspot key={obs.id} observation={obs} active={active} />
+        ))}
     </>
   );
 }
+
 export const Earth = memo(EarthBase);
