@@ -11,7 +11,7 @@ export function GlobeScene() {
       <ambientLight intensity={0.8} />
 
       {/* Luz tipo sol */}
-      <directionalLight position={[5, 3, 5]} intensity={1.5} />
+      <directionalLight position={[5, 3, 5]} intensity={4.5} />
 
       {/* Relleno suave */}
       <hemisphereLight intensity={0.4} groundColor="#000000" />

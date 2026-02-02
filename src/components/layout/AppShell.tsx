@@ -17,8 +17,8 @@ export function AppShell({ sidebar, overlay, children }: AppShellProps) {
       {/* Main area */}
       <div className="flex flex-1 overflow-hidden">
         {/* LEFT: Card */}
-        <div className="w-[420px] shrink-0 border-r border-white/10 bg-zinc-950/95 backdrop-blur p-4 overflow-y-auto">
-          {overlay}
+        <div className="w-[420px] shrink-0 border-r border-white/10 bg-zinc-950/95 backdrop-blur p-4 overflow-y-auto flex">
+          <div className="m-auto">{overlay}</div>
         </div>
 
         {/* RIGHT: Globe */}

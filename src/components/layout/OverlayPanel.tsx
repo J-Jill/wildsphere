@@ -1,5 +1,6 @@
 import { useSelection } from "@/context/SelectionContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ObservationCard } from "../cards/ObservationCard";
 
 export function OverlayPanel() {
   const { selected } = useSelection();
@@ -24,6 +25,7 @@ export function OverlayPanel() {
           <p className="text-zinc-400">{selected.taxon?.name}</p>
         </CardContent>
       </Card>
+      <ObservationCard observation={selected} />
     </div>
   );
 }
