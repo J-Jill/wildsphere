@@ -1,6 +1,6 @@
 import { useSelection } from "@/context/SelectionContext";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ObservationCard } from "../cards/ObservationCard";
+import { ObservationPanel } from "../panels/ObservationPanel";
 
 export function Sidebar() {
   const { selected } = useSelection();
@@ -12,7 +12,7 @@ export function Sidebar() {
           Select an observation on the globe.
         </p>
       ) : (
-        <ObservationCard observation={selected} />
+        <ObservationPanel observation={selected} />
       )}
     </ScrollArea>
   );

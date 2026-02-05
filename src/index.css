@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@import "@fontsource/be-vietnam-pro/400.css";
+@import "@fontsource/be-vietnam-pro/700.css";
+@import "@fontsource/be-vietnam-pro/900.css";
+
+@theme {
+  --font-vietnam: "Be Vietnam Pro", sans-serif;
+}
+
 html,
 body,
 #root {
