@@ -1,5 +1,5 @@
+import type { InatObservation } from "@/features/observations/types/inaturalist";
 import { createContext, useContext, useState, type ReactNode } from "react";
-import type { InatObservation } from "@/types/inaturalist";
 
 type SelectionContextType = {
   selected: InatObservation | null;

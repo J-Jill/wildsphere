@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { AppShell } from "@/components/layout/AppShell";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { GlobeScene } from "@/features/globe/GlobeScene.tsx";
-import { Topbar } from "@/components/layout/Topbar";
+import { AppShell } from "@/app/layout/AppShell";
+import { GlobeScene } from "@/features/globe/GlobeScene";
+import { Topbar } from "@/app/layout/Topbar";
 import { IntroOverlay } from "@/features/intro/IntroOverlay";
+import { LeftPanel } from "./layout/LeftPanel";
 
 export default function App() {
   const [hasEntered, setHasEntered] = useState(false);
@@ -16,7 +16,7 @@ export default function App() {
           <IntroOverlay key="intro" onEnter={() => setHasEntered(true)} />
         )}
       </AnimatePresence>{" "}
-      <AppShell sidebar={<Topbar />} overlay={<Sidebar />}>
+      <AppShell topBar={<Topbar />} leftPanel={<LeftPanel />}>
         <GlobeScene active={hasEntered} />
       </AppShell>
     </>

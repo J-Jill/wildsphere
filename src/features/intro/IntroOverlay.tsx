@@ -1,5 +1,5 @@
+import { Button } from "@/share/components/ui/button";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 
 interface IntroOverlayProps {
   onEnter: () => void;
@@ -17,7 +17,9 @@ export function IntroOverlay({ onEnter }: IntroOverlayProps) {
         initial={{ scale: 0.96, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.2 }}>
-<h1 className="font-vietnam font-black text-6xl uppercase tracking-tighter">          WildSphere
+        <h1 className="font-vietnam font-black text-6xl uppercase tracking-tighter">
+          {" "}
+          WildSphere
         </h1>
         <p className="text-zinc-400 text-lg">
           Explore real wildlife observations from around the world.

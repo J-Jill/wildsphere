@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchObservations } from "@/services/inaturalist";
+import { fetchObservations } from "@/features/observations/services/inaturalist";
 
 export function useObservations() {
   return useQuery({

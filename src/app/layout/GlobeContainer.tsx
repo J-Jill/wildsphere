@@ -1,8 +1,8 @@
-import { useSelection } from "@/context/SelectionContext";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { ObservationPanel } from "../panels/ObservationPanel";
+import { useSelection } from "@/features/observations/components/ObservationDetails";
+import { ObservationPanel } from "@/features/observations/components/ObservationPanel";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
-export function Sidebar() {
+export function GlobeContainer() {
   const { selected } = useSelection();
 
   return (

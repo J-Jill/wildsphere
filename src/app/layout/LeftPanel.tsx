@@ -1,10 +1,10 @@
 import { useSelection } from "@/context/SelectionContext";
-import { useObservations } from "@/hooks/useObservations";
-import { ObservationPanel } from "../panels/ObservationPanel";
-import { ObservationPanelSkeleton } from "../panels/ObservationPanelSkeleton";
+import { useObservations } from "@/features/observations/hooks/useObservations";
+import { ObservationPanelSkeleton } from "../../features/observations/components/ObservationSkeleton";
+import { ObservationPanel } from "@/features/observations/components/ObservationPanel";
 import clsx from "clsx";
 
-export function OverlayPanel() {
+export function LeftPanel() {
   const { selected } = useSelection();
   const { isLoading } = useObservations();
 

@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/share/components/ui/skeleton";
 
 export function ObservationPanelSkeleton() {
   return (
