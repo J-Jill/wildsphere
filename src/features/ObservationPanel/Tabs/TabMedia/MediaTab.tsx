@@ -18,32 +18,36 @@ export function MediaTab({ observation }: Props) {
       {/* Main image */}
       <div className="w-full h-[340px] overflow-hidden rounded-xl border border-white/10">
         <img
+          key={activePhoto.url}
           src={activePhoto.url.replace("square", "large")}
           alt=""
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-opacity duration-300"
         />
       </div>
 
       {/* Thumbnails */}
       {photos.length > 1 && (
         <div className="flex gap-2 overflow-x-auto">
-          {photos.map((photo, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveIndex(idx)}
-              className={`h-16 w-16 shrink-0 overflow-hidden rounded-lg border transition
+          {photos.map((photo, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <button
+                key={photo.url}
+                onClick={() => setActiveIndex(index)}
+                className={`h-16 w-16 shrink-0 overflow-hidden rounded-lg border transition
                 ${
-                  idx === activeIndex
+                  isActive
                     ? "border-white"
                     : "border-white/10 opacity-70 hover:opacity-100"
                 }`}>
-              <img
-                src={photo.url}
-                alt=""
-                className="h-full w-full object-cover"
-              />
-            </button>
-          ))}
+                <img
+                  src={photo.url}
+                  alt=""
+                  className="h-full w-full object-cover"
+                />
+              </button>
+            );
+          })}
         </div>
       )}
     </div>
