@@ -1,7 +1,7 @@
 import { useSelection } from "@/context/SelectionContext";
 import { useObservations } from "@/features/ObservationPanel/hooks/useObservations";
-import { ObservationPanelSkeleton } from "../../features/ObservationPanel/Tabs/ObservationSkeleton";
 import { TabsPanel } from "@/features/ObservationPanel/Tabs/ObservationPanel";
+import { ObservationOverviewSkeleton } from "@/features/ObservationPanel/Tabs/ObservationSkeleton";
 import clsx from "clsx";
 
 export function LeftPanel() {
@@ -17,7 +17,7 @@ export function LeftPanel() {
         isVisible ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0",
       )}>
       {isLoading ? (
-        <ObservationPanelSkeleton />
+        <ObservationOverviewSkeleton />
       ) : selected ? (
         <TabsPanel observation={selected} />
       ) : (

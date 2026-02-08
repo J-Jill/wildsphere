@@ -8,6 +8,9 @@ import {
 import { TabDetails } from "./TabDetails/TabDetails";
 import { MediaTab } from "./TabMedia/MediaTab";
 import { TabOverview } from "./TabOverview/TabOverview";
+import { MediaSkeleton } from "./TabMedia/MediaSkeleton";
+import { DetailsSkeleton } from "./TabDetails/DetailsSkeleton";
+import { OverviewSkeleton } from "./TabOverview/OverviewSkeleton";
 
 export function TabsPanel({ observation }) {
   const taxon = observation.taxon;
@@ -44,15 +47,27 @@ export function TabsPanel({ observation }) {
           </TabsList>
 
           <TabsContent value="overview" className="mt-4">
-            <TabOverview observation={observation} />
+            {observation ? (
+              <TabOverview observation={observation} />
+            ) : (
+              <OverviewSkeleton />
+            )}
           </TabsContent>
 
           <TabsContent value="details" className="mt-4">
-            <TabDetails observation={observation} />
+            {observation ? (
+              <TabDetails observation={observation} />
+            ) : (
+              <DetailsSkeleton />
+            )}{" "}
           </TabsContent>
 
           <TabsContent value="media" className="mt-4">
-            <MediaTab observation={observation} />
+            {observation ? (
+              <MediaTab observation={observation} />
+            ) : (
+              <MediaSkeleton />
+            )}
           </TabsContent>
         </Tabs>
       </div>
