@@ -1,7 +1,7 @@
 import { useSelection } from "@/context/SelectionContext";
-import { useObservations } from "@/features/observations/hooks/useObservations";
-import { ObservationPanelSkeleton } from "../../features/observations/components/ObservationSkeleton";
-import { ObservationPanel } from "@/features/observations/components/ObservationPanel";
+import { useObservations } from "@/features/ObservationPanel/hooks/useObservations";
+import { ObservationPanelSkeleton } from "../../features/ObservationPanel/Tabs/ObservationSkeleton";
+import { TabsPanel } from "@/features/ObservationPanel/Tabs/ObservationPanel";
 import clsx from "clsx";
 
 export function LeftPanel() {
@@ -19,7 +19,7 @@ export function LeftPanel() {
       {isLoading ? (
         <ObservationPanelSkeleton />
       ) : selected ? (
-        <ObservationPanel observation={selected} />
+        <TabsPanel observation={selected} />
       ) : (
         <div className="h-full flex items-center justify-center text-sm text-zinc-400">
           Select a hotspot to explore wildlife data.

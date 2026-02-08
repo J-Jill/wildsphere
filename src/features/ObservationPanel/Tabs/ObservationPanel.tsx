@@ -5,11 +5,13 @@ import {
   TabsTrigger,
 } from "@/share/components/ui/tabs";
 
-import { ObservationDetails } from "./ObservationDetails";
-import { ObservationMedia } from "./ObservationMedia/ObservationMedia";
+import { TabDetails } from "./TabDetails/TabDetails";
+import { MediaTab } from "./TabMedia/MediaTab";
+import { TabOverview } from "./TabOverview/TabOverview";
 
-export function ObservationPanel({ observation }) {
+export function TabsPanel({ observation }) {
   const taxon = observation.taxon;
+  console.log("observation:", observation);
 
   return (
     <div className="h-full flex flex-col bg-zinc-950">
@@ -36,21 +38,21 @@ export function ObservationPanel({ observation }) {
 
         <Tabs defaultValue="details">
           <TabsList className="bg-zinc-900/80 p-1 rounded-lg border border-white/10">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="details">Details</TabsTrigger>
-            <TabsTrigger value="context">Context</TabsTrigger>
             <TabsTrigger value="media">Media</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="details" className="mt-4">
-            {/* InfoRow block (lo que ya tienes) */}
+          <TabsContent value="overview" className="mt-4">
+            <TabOverview observation={observation} />
           </TabsContent>
 
-          <TabsContent value="context" className="mt-4">
-            <ObservationDetails observation={observation} />
+          <TabsContent value="details" className="mt-4">
+            <TabDetails observation={observation} />
           </TabsContent>
 
           <TabsContent value="media" className="mt-4">
-            <ObservationMedia observation={observation} />
+            <MediaTab observation={observation} />
           </TabsContent>
         </Tabs>
       </div>

@@ -1,17 +1,13 @@
-import { useState, useEffect } from "react";
-import type { InatObservation } from "@/features/observations/types/inaturalist";
+import { useState } from "react";
+import type { InatObservation } from "@/features/ObservationPanel/types/inaturalist";
 
 type Props = {
-  observation: InatObservation;
+  observation: Pick<InatObservation, "photos">;
 };
 
-export function ObservationMedia({ observation }: Props) {
+export function MediaTab({ observation }: Props) {
   const photos = observation.photos ?? [];
   const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [observation.id]);
 
   if (!photos.length) return null;
 

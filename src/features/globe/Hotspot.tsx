@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { useSelection } from "@/context/SelectionContext";
 import { latLngToVector3 } from "@/features/globe/utils/geo";
-import type { InatObservation } from "@/features/observations/types/inaturalist";
+import type { InatObservation } from "@/features/ObservationPanel/types/inaturalist";
 
 type HotspotProps = {
   observation: InatObservation;

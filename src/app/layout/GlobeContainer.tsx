@@ -1,5 +1,5 @@
-import { useSelection } from "@/features/observations/components/ObservationDetails";
-import { ObservationPanel } from "@/features/observations/components/ObservationPanel";
+import { useSelection } from "@/features/ObservationPanel/Tabs/TabDetails/TabDetails";
+import { TabsPanel } from "@/features/ObservationPanel/Tabs/ObservationPanel";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 export function GlobeContainer() {
@@ -12,7 +12,7 @@ export function GlobeContainer() {
           Select an observation on the globe.
         </p>
       ) : (
-        <ObservationPanel observation={selected} />
+        <TabsPanel observation={selected} />
       )}
     </ScrollArea>
   );
