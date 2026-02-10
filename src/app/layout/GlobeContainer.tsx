@@ -1,5 +1,5 @@
-import { useSelection } from "@/features/ObservationPanel/Tabs/TabDetails/TabDetails";
-import { TabsPanel } from "@/features/ObservationPanel/Tabs/ObservationPanel";
+import { useSelection } from "@/context/SelectionContext";
+import { TabsPanel } from "@/features/ObservationPanel/Tabs/TabsPanel";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 export function GlobeContainer() {

@@ -3,12 +3,14 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { Earth } from "./Earth";
+import { useObservations } from "../ObservationPanel/hooks/useObservations";
 
 interface GlobeSceneProps {
   active: boolean;
 }
 
 function SceneContent({ active }: { active: boolean }) {
+  const { isError } = useObservations();
   const globeRef = useRef<THREE.Group>(null!);
   const lightRef = useRef<THREE.DirectionalLight>(null!);
 
@@ -28,12 +30,14 @@ function SceneContent({ active }: { active: boolean }) {
     );
   });
 
+  if (isError) {
+    return <>Unable to load observations</>;
+  }
+
   return (
     <>
       <ambientLight intensity={0.4} />
-
       <directionalLight ref={lightRef} position={[5, 3, 5]} intensity={0.3} />
-
       <hemisphereLight intensity={0.4} groundColor="#000000" />
 
       <group ref={globeRef}>

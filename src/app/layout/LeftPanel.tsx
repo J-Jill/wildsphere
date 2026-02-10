@@ -1,30 +1,33 @@
 import { useSelection } from "@/context/SelectionContext";
-import { useObservations } from "@/features/ObservationPanel/hooks/useObservations";
-import { TabsPanel } from "@/features/ObservationPanel/Tabs/ObservationPanel";
-import { ObservationOverviewSkeleton } from "@/features/ObservationPanel/Tabs/ObservationSkeleton";
-import clsx from "clsx";
+import { TabsPanel } from "@/features/ObservationPanel/Tabs/TabsPanel";
 
-export function LeftPanel() {
+type LeftPanelProps = {
+  isLoading: boolean;
+  isError: boolean;
+};
+
+export function LeftPanel({ isLoading, isError }: LeftPanelProps) {
   const { selected } = useSelection();
-  const { isLoading } = useObservations();
 
-  const isVisible = isLoading || !!selected;
+  if (isError) {
+    return (
+      <div className="h-full flex items-center justify-center text-sm text-zinc-400 px-6 text-center">
+        We’re having trouble loading wildlife data right now.
+        <br />
+        Please try again in a moment.
+      </div>
+    );
+  }
 
-  return (
-    <div
-      className={clsx(
-        "h-full transition-all duration-500 ease-out",
-        isVisible ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0",
-      )}>
-      {isLoading ? (
-        <ObservationOverviewSkeleton />
-      ) : selected ? (
-        <TabsPanel observation={selected} />
-      ) : (
-        <div className="h-full flex items-center justify-center text-sm text-zinc-400">
-          Select a hotspot to explore wildlife data.
-        </div>
-      )}
-    </div>
-  );
+  if (isLoading) {
+    return (
+      <div className="p-6 space-y-4">
+        <div className="h-40 bg-zinc-800 rounded-lg animate-pulse" />
+        <div className="h-4 bg-zinc-800 rounded w-3/4 animate-pulse" />
+        <div className="h-4 bg-zinc-800 rounded w-1/2 animate-pulse" />
+      </div>
+    );
+  }
+
+  return <TabsPanel observation={selected} hasSelection={!!selected} />;
 }

@@ -5,9 +5,11 @@ import { GlobeScene } from "@/features/globe/GlobeScene";
 import { Topbar } from "@/app/layout/Topbar";
 import { IntroOverlay } from "@/features/intro/IntroOverlay";
 import { LeftPanel } from "./layout/LeftPanel";
+import { useObservations } from "@/features/ObservationPanel/hooks/useObservations";
 
 export default function App() {
   const [hasEntered, setHasEntered] = useState(false);
+  const { isLoading, isError } = useObservations();
 
   return (
     <>
@@ -16,7 +18,9 @@ export default function App() {
           <IntroOverlay key="intro" onEnter={() => setHasEntered(true)} />
         )}
       </AnimatePresence>{" "}
-      <AppShell topBar={<Topbar />} leftPanel={<LeftPanel />}>
+      <AppShell
+        topBar={<Topbar onHome={() => setHasEntered(false)} />}
+        leftPanel={<LeftPanel isLoading={isLoading} isError={isError} />}>
         <GlobeScene active={hasEntered} />
       </AppShell>
     </>
