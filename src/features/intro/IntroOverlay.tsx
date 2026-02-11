@@ -8,7 +8,7 @@ interface IntroOverlayProps {
 export function IntroOverlay({ onEnter }: IntroOverlayProps) {
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black"
+      className="fixed inset-0 z-50 flex items-center justify-center intro-bg"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6 }}>
@@ -24,15 +24,14 @@ export function IntroOverlay({ onEnter }: IntroOverlayProps) {
         <p className="text-zinc-400 text-lg">
           Explore real wildlife observations from around the world.
         </p>
-
         <p className="text-sm text-zinc-500">
           Each marker represents a real animal sighting. Discover species,
           locations, and stories.
         </p>
-
         <Button size="lg" onClick={onEnter}>
           Explore the planet
         </Button>
+        ' '
       </motion.div>
     </motion.div>
   );

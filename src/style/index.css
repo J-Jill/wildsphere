@@ -15,3 +15,12 @@ body,
   background-color: black;
   color: aliceblue;
 }
+
+@layer utilities {
+  .intro-bg {
+    background-image: url("@/assets/images/intro-bg.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}

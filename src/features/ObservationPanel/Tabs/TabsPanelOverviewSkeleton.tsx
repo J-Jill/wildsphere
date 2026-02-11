@@ -1,6 +1,6 @@
 import { Skeleton } from "@/share/components/ui/skeleton";
 
-export function ObservationOverviewSkeleton() {
+export function TabsPanelOverviewSkeleton() {
   return (
     <div className="space-y-5">
       {/* Title */}

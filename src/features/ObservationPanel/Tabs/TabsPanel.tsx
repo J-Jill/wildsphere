@@ -45,7 +45,7 @@ export function TabsPanel({ observation, hasSelection }: TabsPanelProps) {
           {taxon?.name && <p className="italic text-zinc-400">{taxon.name}</p>}
         </div>
 
-        <Tabs defaultValue="details">
+        <Tabs key={observation?.id ?? "empty"} defaultValue="overview">
           <TabsList
             className={cn(
               "bg-zinc-900/80 p-1 rounded-lg border border-white/10 transition",
