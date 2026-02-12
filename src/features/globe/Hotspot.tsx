@@ -24,46 +24,41 @@ function HotspotBase({ observation, active }: HotspotProps) {
     return latLngToVector3(lat, lng, 1.01);
   }, [coords]);
 
-  useFrame(() => {
+  useFrame(({ clock }) => {
     if (!ref.current || !materialRef.current) return;
 
-    const baseScale = active ? 1 : 0;
-    const hoverScale = hovered ? 1.6 : 1;
-    const target = baseScale * hoverScale;
+    const pulse = 1 + Math.sin(clock.getElapsedTime() * 2) * 0.2;
+    const scale = hovered ? 1.4 : active ? 1.2 : pulse;
 
-    ref.current.scale.lerp(new THREE.Vector3(target, target, target), 0.15);
+    ref.current.scale.setScalar(scale);
 
-    materialRef.current.emissiveIntensity = THREE.MathUtils.lerp(
-      materialRef.current.emissiveIntensity,
-      hovered ? 1.2 : 0.6,
-      0.1,
-    );
+    materialRef.current.emissiveIntensity = hovered ? 1.2 : 0.6;
   });
 
   if (!position) return null;
 
   return (
-    <mesh
-      ref={ref}
-      position={position}
-      scale={[0, 0, 0]}
-      onPointerEnter={() => {
-        setHovered(true);
-        document.body.style.cursor = "pointer";
-      }}
-      onPointerLeave={() => {
-        setHovered(false);
-        document.body.style.cursor = "default";
-      }}
-      onClick={() => selectObservation(observation)}>
-      <sphereGeometry args={[0.02, 16, 16]} />
-      <meshStandardMaterial
-        ref={materialRef}
-        color="orange"
-        emissive="orange"
-        emissiveIntensity={0.6}
-      />
-    </mesh>
+    <group position={position}>
+      <mesh
+        ref={ref}
+        onPointerEnter={() => {
+          setHovered(true);
+          document.body.style.cursor = "pointer";
+        }}
+        onPointerLeave={() => {
+          setHovered(false);
+          document.body.style.cursor = "default";
+        }}
+        onClick={() => selectObservation(observation)}>
+        <sphereGeometry args={[0.02, 16, 16]} />
+        <meshStandardMaterial
+          ref={materialRef}
+          color="orange"
+          emissive="orange"
+          emissiveIntensity={0.6}
+        />
+      </mesh>
+    </group>
   );
 }
 

@@ -15,58 +15,24 @@ interface GlobeSceneProps {
 function SceneContent({ active }: { active: boolean }) {
   const { isError } = useObservations();
   const { selected } = useSelection();
-
   const globeRef = useRef<THREE.Group>(null!);
   const lightRef = useRef<THREE.DirectionalLight>(null!);
-  const targetRotation = useRef(new THREE.Quaternion());
   const isUserInteracting = useRef(false);
 
   useFrame(() => {
-    if (!globeRef.current || !lightRef.current) return;
-
-    lightRef.current.intensity = THREE.MathUtils.lerp(
-      lightRef.current.intensity,
-      active ? 3.5 : 0.3,
-      0.05,
-    );
-
-    if (!isUserInteracting.current) {
-      globeRef.current.quaternion.slerp(targetRotation.current, 0.05);
-    }
+    if (!globeRef.current || isUserInteracting.current) return;
+    globeRef.current.rotation.y += 0.001;
   });
-
-  useEffect(() => {
-    if (!selected) return;
-
-    const [lng, lat] = getLatLng(selected);
-    const targetArr = latLngToVector3(lat, lng, 1);
-
-    // convertir array → Vector3
-    const target = new THREE.Vector3(...targetArr);
-    const cameraDir = new THREE.Vector3(0, 0, 1); // hacia la cámara
-
-    const q = new THREE.Quaternion().setFromUnitVectors(
-      target.clone().normalize(),
-      cameraDir,
-    );
-
-    targetRotation.current.copy(q);
-  }, [selected]);
-
-  if (isError) {
-    return <>Unable to load observations</>;
-  }
+  if (isError) return <>Unable to load observations</>;
 
   return (
     <>
       <ambientLight intensity={0.4} />
       <directionalLight ref={lightRef} position={[5, 3, 5]} intensity={0.3} />
       <hemisphereLight intensity={0.4} groundColor="#000000" />
-
       <group ref={globeRef}>
         <Earth active={active} />
       </group>
-
       <OrbitControls
         enablePan={false}
         minDistance={1.8}
@@ -81,8 +47,7 @@ function SceneContent({ active }: { active: boolean }) {
 export function GlobeScene({ active }: GlobeSceneProps) {
   return (
     <Canvas className="h-full w-full" camera={{ position: [0, 0, 6], fov: 50 }}>
-      <StarsBackground />
-      <SceneContent active={active} />
+      <StarsBackground /> <SceneContent active={active} />
     </Canvas>
   );
 }
