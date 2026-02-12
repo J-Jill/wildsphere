@@ -6,6 +6,7 @@ import { Earth } from "./Earth";
 import { useObservations } from "../ObservationPanel/hooks/useObservations";
 import { useSelection } from "@/context/SelectionContext";
 import { latLngToVector3, getLatLng } from "./utils/geo";
+import { StarsBackground } from "./StarsBackground";
 
 interface GlobeSceneProps {
   active: boolean;
@@ -18,21 +19,22 @@ function SceneContent({ active }: { active: boolean }) {
   const globeRef = useRef<THREE.Group>(null!);
   const lightRef = useRef<THREE.DirectionalLight>(null!);
   const targetRotation = useRef(new THREE.Quaternion());
+  const isUserInteracting = useRef(false);
 
   useFrame(() => {
     if (!globeRef.current || !lightRef.current) return;
 
-    globeRef.current.position.y = THREE.MathUtils.lerp(
-      globeRef.current.position.y,
-      active ? 0 : -1.5,
-      0.05,
-    );
-
+    // animación de luz
     lightRef.current.intensity = THREE.MathUtils.lerp(
       lightRef.current.intensity,
       active ? 3.5 : 0.3,
       0.05,
     );
+
+    // animación del globo
+    if (!isUserInteracting.current) {
+      globeRef.current.quaternion.slerp(targetRotation.current, 0.05);
+    }
   });
 
   useEffect(() => {
@@ -54,12 +56,6 @@ function SceneContent({ active }: { active: boolean }) {
     targetRotation.current.copy(q);
   }, [selected]);
 
-  useFrame(() => {
-    if (!globeRef.current) return;
-
-    globeRef.current.quaternion.slerp(targetRotation.current, 0.05);
-  });
-
   if (isError) {
     return <>Unable to load observations</>;
   }
@@ -78,7 +74,8 @@ function SceneContent({ active }: { active: boolean }) {
         enablePan={false}
         minDistance={1.8}
         maxDistance={3}
-        enableRotate={!selected}
+        onStart={() => (isUserInteracting.current = true)}
+        onEnd={() => (isUserInteracting.current = false)}
       />
     </>
   );
@@ -87,6 +84,7 @@ function SceneContent({ active }: { active: boolean }) {
 export function GlobeScene({ active }: GlobeSceneProps) {
   return (
     <Canvas className="h-full w-full" camera={{ position: [0, 0, 6], fov: 50 }}>
+      <StarsBackground />
       <SceneContent active={active} />
     </Canvas>
   );
