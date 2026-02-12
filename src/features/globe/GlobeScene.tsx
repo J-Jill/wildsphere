@@ -24,14 +24,12 @@ function SceneContent({ active }: { active: boolean }) {
   useFrame(() => {
     if (!globeRef.current || !lightRef.current) return;
 
-    // animación de luz
     lightRef.current.intensity = THREE.MathUtils.lerp(
       lightRef.current.intensity,
       active ? 3.5 : 0.3,
       0.05,
     );
 
-    // animación del globo
     if (!isUserInteracting.current) {
       globeRef.current.quaternion.slerp(targetRotation.current, 0.05);
     }
@@ -45,12 +43,11 @@ function SceneContent({ active }: { active: boolean }) {
 
     // convertir array → Vector3
     const target = new THREE.Vector3(...targetArr);
-
-    const current = new THREE.Vector3(0, 0, 1);
+    const cameraDir = new THREE.Vector3(0, 0, 1); // hacia la cámara
 
     const q = new THREE.Quaternion().setFromUnitVectors(
       target.clone().normalize(),
-      current,
+      cameraDir,
     );
 
     targetRotation.current.copy(q);
@@ -66,7 +63,7 @@ function SceneContent({ active }: { active: boolean }) {
       <directionalLight ref={lightRef} position={[5, 3, 5]} intensity={0.3} />
       <hemisphereLight intensity={0.4} groundColor="#000000" />
 
-      <group ref={globeRef} rotation={[0, 0, 0]}>
+      <group ref={globeRef}>
         <Earth active={active} />
       </group>
 
