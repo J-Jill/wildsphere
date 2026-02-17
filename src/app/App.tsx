@@ -6,6 +6,7 @@ import { Topbar } from "@/app/layout/Topbar";
 import { IntroOverlay } from "@/features/intro/IntroOverlay";
 import { LeftPanel } from "./layout/LeftPanel";
 import { useObservations } from "@/features/ObservationPanel/hooks/useObservations";
+import { TooltipProvider } from "@/features/globe/context/TooltipContext";
 
 export default function App() {
   const [hasEntered, setHasEntered] = useState(false);
@@ -21,7 +22,9 @@ export default function App() {
       <AppShell
         topBar={<Topbar onHome={() => setHasEntered(false)} />}
         leftPanel={<LeftPanel isLoading={isLoading} isError={isError} />}>
-        <GlobeScene active={hasEntered} />
+        <TooltipProvider>
+          <GlobeScene active={hasEntered} />
+        </TooltipProvider>
       </AppShell>
     </>
   );
