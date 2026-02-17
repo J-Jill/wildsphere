@@ -30,7 +30,7 @@ export function IntroOverlay({ onEnter }: IntroOverlayProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.45, duration: 0.8 }}>
-          Explore real wildlife observations from around the world.
+          EXPLORE EARTH'S BIODIVERSITY
         </motion.p>
 
         <motion.p
@@ -38,18 +38,38 @@ export function IntroOverlay({ onEnter }: IntroOverlayProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.55, duration: 0.8 }}>
-          Each marker represents a real animal sighting. Discover species,
-          locations, and stories.
+          Discover species across the globe through real-time observations. An
+          immersive journey into the natural world.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.75, duration: 0.8 }}>
-          <Button size="lg" onClick={onEnter}>
+          <Button
+            size="lg"
+            onClick={onEnter}
+            className="px-8 py-5 text-lg font-medium rounded-xl 
+             bg-white/10 backdrop-blur-md border border-white/20 
+             hover:bg-white/20 transition-all duration-300">
             Explore the planet
           </Button>
         </motion.div>
+
+        <motion.p
+          className="text-xs text-zinc-600 pt-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.8 }}
+          transition={{ delay: 1, duration: 0.8 }}>
+          Powered by data from{" "}
+          <a
+            href="https://www.inaturalist.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline decoration-zinc-500 hover:decoration-zinc-300 transition-colors">
+            iNaturalist
+          </a>
+        </motion.p>
       </motion.div>
     </motion.div>
   );
