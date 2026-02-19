@@ -34,7 +34,7 @@ export function IntroOverlay({ onEnter }: IntroOverlayProps) {
         </motion.p>
 
         <motion.p
-          className="text-sm text-zinc-500"
+          className="text-xl text-zinc-500"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.55, duration: 0.8 }}>
@@ -57,7 +57,7 @@ export function IntroOverlay({ onEnter }: IntroOverlayProps) {
         </motion.div>
 
         <motion.p
-          className="text-xs text-zinc-600 pt-4"
+          className="text-sm text-zinc-600 pt-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.8 }}
           transition={{ delay: 1, duration: 0.8 }}>

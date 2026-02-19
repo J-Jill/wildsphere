@@ -16,13 +16,6 @@ export function TabOverview({ observation }: Props) {
 
   return (
     <div className="space-y-6 text-sm">
-      {/* TITLE */}
-      <div className="space-y-1">
-        <h2 className="text-xl font-semibold leading-tight">{commonName}</h2>
-
-        {taxon?.name && <p className="italic text-zinc-400">{taxon.name}</p>}
-      </div>
-
       {/* META */}
       <div className="space-y-3">
         {observation.observed_on && (

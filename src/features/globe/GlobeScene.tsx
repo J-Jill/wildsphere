@@ -27,7 +27,7 @@ function SceneContent({ active }: { active: boolean }) {
 
   return (
     <>
-      <ambientLight intensity={0.4} />
+      <ambientLight intensity={3} />
       <directionalLight ref={lightRef} position={[5, 3, 5]} intensity={0.3} />
       <hemisphereLight intensity={0.4} groundColor="#000000" />
       <group ref={globeRef}>
