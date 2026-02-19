@@ -1,11 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { Earth } from "./Earth";
 import { useObservations } from "../ObservationPanel/hooks/useObservations";
-import { useSelection } from "@/context/SelectionContext";
-import { latLngToVector3, getLatLng } from "./utils/geo";
 import { StarsBackground } from "./StarsBackground";
 
 interface GlobeSceneProps {
@@ -14,7 +12,6 @@ interface GlobeSceneProps {
 
 function SceneContent({ active }: { active: boolean }) {
   const { isError } = useObservations();
-  const { selected } = useSelection();
   const globeRef = useRef<THREE.Group>(null!);
   const lightRef = useRef<THREE.DirectionalLight>(null!);
   const isUserInteracting = useRef(false);

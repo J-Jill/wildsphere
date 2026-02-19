@@ -9,11 +9,6 @@ type Props = {
 export function TabOverview({ observation }: Props) {
   const taxon = observation.taxon;
 
-  const commonName =
-    taxon?.preferred_common_name ??
-    observation.species_guess ??
-    "Unknown species";
-
   return (
     <div className="space-y-6 text-sm">
       {/* META */}

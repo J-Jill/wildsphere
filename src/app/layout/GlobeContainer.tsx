@@ -12,7 +12,7 @@ export function GlobeContainer() {
           Select an observation on the globe.
         </p>
       ) : (
-        <TabsPanel observation={selected} />
+        <TabsPanel observation={selected} hasSelection={false} />
       )}
     </ScrollArea>
   );
