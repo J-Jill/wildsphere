@@ -1,73 +1,39 @@
-# React + TypeScript + Vite
+# 🌍 WildSphere — Premium Biodiversity Visualizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+WildSphere is an interactive, data-driven web application that visualizes real-world wildlife observations on a 3D globe. Built with **React**, **TypeScript**, and **Three.js**, it transforms raw biodiversity data from the iNaturalist API into a cinematic, documentary-level exploratory experience.
 
-Currently, two official plugins are available:
+## 🚀 Key Technical Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. Architectural Patterns
+- **App Shell Model:** Designed a stable application shell that keeps the 3D experience persistent while allowing contextual UI panels to slide in/out without interrupting the render loop.
+- **Declarative 3D:** Used **React Three Fiber (R3F)** and **Drei** to keep the 3D layer aligned with React’s component mental model.
+- **Decoupled Logic:** Geographic-to-Cartesian conversion logic is decoupled from the rendering layer to accurately map real-world coordinates onto the 3D sphere.
 
-## React Compiler
+### 2. Performance & Optimization
+- **Render Loop Efficiency:** Hotspots animate via scale interpolation inside the render loop to avoid costly React re-renders, ensuring 60 FPS.
+- **Perceived Performance:** Replaced standard spinners with **custom skeletons** and staggered entrance animations via **Framer Motion** to guide user focus.
+- **Camera Orchestration:** Intentionally constrained camera controls using OrbitControls targets to preserve a focused UX and avoid abrupt transitions.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 3. Data Architecture
+- **iNaturalist Integration:** Consumes real-world, geo-referenced biodiversity data. 
+- **Type-Safe Models:** Modeled only necessary fields from the API to keep TypeScript definitions focused and maintainable.
+- **State Management:** Used a lightweight context to manage UI-level state without polluting the data layer.
 
-## Expanding the ESLint configuration
+## 🎨 Design System (Premium Aesthetic)
+- **Visual Identity:** A "documentary-style" UI using **Playfair Display** (Serif) for elegance and **Inter** (Sans-serif) for readability.
+- **Motion Design:** Cinematic fade-ups and zoom transitions that introduce the user to the globe through an onboarding flow.
+- **Interactive Hotspots:** Amber-colored markers with a pulse/glow animation that reveal detailed observation cards on hover/click.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
+- **Frontend:** React 18, TypeScript, Tailwind CSS.
+- **3D Engine:** Three.js, React Three Fiber, @react-three/drei.
+- **Animation:** Framer Motion.
+- **UI Components:** Radix UI / Shadcn.
+- **Data:** iNaturalist API.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📜 Credits & Attributions
+- **Earth Textures:** Courtesy of NASA Visible Earth (Blue Marble: Next Generation).
+- **Data Source:** Biodiversity data provided by the iNaturalist open API.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+*Developed by [Jillian Ramirez](https://github.com/J-Jill)*
