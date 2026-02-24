@@ -1,7 +1,13 @@
 # 🌍 WildSphere — Premium Biodiversity Visualizer
 
-[![Demo](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge&logo=netlify)](https://wildsphere.netlify.app/)
-[![Repo](https://img.shields.io/badge/repo-github-white?style=for-the-badge&logo=github)](https://github.com/J-Jill/wildsphere)
+<p align="left">
+  <a href="https://wildsphere.netlify.app/" target="_blank">
+    <img src="https://img.shields.io/badge/LIVE%20DEMO-brightgreen?style=for-the-badge&logo=netlify&logoColor=white" alt="Live Demo" />
+  </a>
+  <a href="https://github.com/J-Jill/wildsphere" target="_blank">
+    <img src="https://img.shields.io/badge/GITHUB%20REPO-white?style=for-the-badge&logo=github&logoColor=black" alt="GitHub Repo" />
+  </a>
+</p>
 
 WildSphere is an interactive, data-driven web application that visualizes real-world wildlife observations on a 3D globe. Built with **React**, **TypeScript**, and **Three.js**, it transforms raw biodiversity data from the iNaturalist API into a cinematic, documentary-level exploratory experience.
 
