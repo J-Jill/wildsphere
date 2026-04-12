@@ -6,17 +6,35 @@
 
 @theme {
   --font-vietnam: "Be Vietnam Pro", sans-serif;
+
+  /* Design tokens */
+  --color-background:        #000000;
+  --color-foreground:        #ffffff;
+  --color-muted:             rgba(255, 255, 255, 0.04);
+  --color-muted-foreground:  rgba(255, 255, 255, 0.35);
+  --color-border:            rgba(255, 255, 255, 0.08);
+  --color-input:             rgba(255, 255, 255, 0.08);
+  --color-primary:           #ffffff;
+  --color-primary-foreground:#000000;
+  --color-secondary:         rgba(255, 255, 255, 0.06);
+  --color-secondary-foreground: #ffffff;
+  --color-accent:            rgba(255, 255, 255, 0.05);
+  --color-accent-foreground: #ffffff;
+  --color-card:              rgba(255, 255, 255, 0.02);
+  --color-card-foreground:   #ffffff;
+  --color-ring:              rgba(255, 255, 255, 0.25);
 }
 
 html,
 body,
 #root {
   height: 100%;
-  background-color: black;
-  color: aliceblue;
+  background-color: #000;
+  color: #fff;
+  font-family: var(--font-vietnam), sans-serif;
 
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 4px;
   }
 
   ::-webkit-scrollbar-track {
@@ -24,25 +42,16 @@ body,
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.2);
   }
 
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
-  }
-}
-
-@layer utilities {
-  .intro-bg {
-    background-image: url("@/assets/images/intro-bg.jpeg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
   }
 }

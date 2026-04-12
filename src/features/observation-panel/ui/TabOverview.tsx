@@ -1,5 +1,4 @@
 import type { InatObservation } from "@/features/observation-panel/types/inaturalist";
-import { Calendar, MapPin, Globe, BookOpen } from "lucide-react";
 import { InfoItem } from "@/features/observation-panel/ui/InfoItem";
 
 type Props = {
@@ -10,19 +9,21 @@ export function TabOverview({ observation }: Props) {
   const taxon = observation.taxon;
 
   return (
-    <div className="space-y-6 text-sm">
-      <div className="space-y-3">
+    <div className="text-sm space-y-5">
+      <div>
         {observation.observed_on && (
           <InfoItem
-            icon={<Calendar size={16} />}
             label="Observed on"
-            value={new Date(observation.observed_on).toLocaleDateString()}
+            value={new Date(observation.observed_on).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
           />
         )}
 
         {observation.place_guess && (
           <InfoItem
-            icon={<MapPin size={16} />}
             label="Location"
             value={observation.place_guess}
           />
@@ -30,7 +31,6 @@ export function TabOverview({ observation }: Props) {
 
         {taxon?.iconic_taxon_name && (
           <InfoItem
-            icon={<Globe size={16} />}
             label="Group"
             value={taxon.iconic_taxon_name}
           />
@@ -38,7 +38,9 @@ export function TabOverview({ observation }: Props) {
       </div>
 
       {observation.description && (
-        <p className="text-zinc-300 leading-relaxed">{observation.description}</p>
+        <p className="text-white/50 leading-relaxed text-sm">
+          {observation.description}
+        </p>
       )}
 
       {taxon?.wikipedia_url && (
@@ -46,9 +48,8 @@ export function TabOverview({ observation }: Props) {
           href={taxon.wikipedia_url}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 text-blue-400 hover:underline">
-          <BookOpen size={16} />
-          Learn more on Wikipedia
+          className="inline-block text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-white transition-colors duration-200">
+          Wikipedia →
         </a>
       )}
     </div>

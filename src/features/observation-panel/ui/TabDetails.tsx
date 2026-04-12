@@ -1,13 +1,4 @@
 import type { InatObservation } from "@/features/observation-panel/types/inaturalist";
-import {
-  MapPin,
-  Globe,
-  Eye,
-  Brain,
-  Lock,
-  ExternalLink,
-  BookOpen,
-} from "lucide-react";
 import { InfoItem } from "@/features/observation-panel/ui/InfoItem";
 
 type Props = {
@@ -19,18 +10,14 @@ export function TabDetails({ observation }: Props) {
     observation;
 
   return (
-    <div className="space-y-4 text-sm">
+    <div className="text-sm">
       <InfoItem
-        icon={<Eye size={16} />}
         label="Observed species"
-        value={
-          taxon?.preferred_common_name ?? observation.species_guess ?? "Unknown"
-        }
+        value={taxon?.preferred_common_name ?? observation.species_guess ?? "Unknown"}
       />
 
       {typeof identifications_count === "number" && (
         <InfoItem
-          icon={<Brain size={16} />}
           label="Identifications"
           value={identifications_count.toString()}
         />
@@ -38,7 +25,6 @@ export function TabDetails({ observation }: Props) {
 
       {typeof captive === "boolean" && (
         <InfoItem
-          icon={<Lock size={16} />}
           label="Captive"
           value={captive ? "Yes" : "No"}
         />
@@ -46,7 +32,6 @@ export function TabDetails({ observation }: Props) {
 
       {place_guess && (
         <InfoItem
-          icon={<MapPin size={16} />}
           label="Location"
           value={place_guess}
         />
@@ -54,7 +39,6 @@ export function TabDetails({ observation }: Props) {
 
       {geojson?.coordinates && (
         <InfoItem
-          icon={<Globe size={16} />}
           label="Coordinates"
           value={`${geojson.coordinates[1].toFixed(3)}, ${geojson.coordinates[0].toFixed(3)}`}
         />
@@ -62,15 +46,14 @@ export function TabDetails({ observation }: Props) {
 
       {observation.uri && (
         <InfoItem
-          icon={<ExternalLink size={16} />}
           label="iNaturalist"
           value={
             <a
               href={observation.uri.toString()}
               target="_blank"
               rel="noreferrer"
-              className="text-blue-400 hover:underline">
-              View observation
+              className="text-white/60 hover:text-white underline underline-offset-2 transition-colors">
+              View observation →
             </a>
           }
         />
@@ -78,15 +61,14 @@ export function TabDetails({ observation }: Props) {
 
       {taxon?.wikipedia_url && (
         <InfoItem
-          icon={<BookOpen size={16} />}
           label="Wikipedia"
           value={
             <a
               href={taxon.wikipedia_url}
               target="_blank"
               rel="noreferrer"
-              className="text-blue-400 hover:underline">
-              Learn more about this species
+              className="text-white/60 hover:text-white underline underline-offset-2 transition-colors">
+              Learn more about this species →
             </a>
           }
         />

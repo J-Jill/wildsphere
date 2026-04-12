@@ -1,9 +1,4 @@
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/shared/ui/tabs";
+import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { cn } from "@/shared/lib/utils";
 import { TabDetails } from "@/features/observation-panel/ui/TabDetails";
 import { MediaTab } from "@/features/observation-panel/ui/MediaTab";
@@ -19,64 +14,102 @@ type TabsPanelProps = {
   hasSelection: boolean;
 };
 
+const TABS = [
+  { value: "overview", label: "Overview" },
+  { value: "details",  label: "Details" },
+  { value: "media",    label: "Media" },
+];
+
 export function TabsPanel({ observation, hasSelection }: TabsPanelProps) {
   const taxon = observation?.taxon;
+  const photo = observation?.photos?.[0];
 
   return (
-    <div className="h-full flex flex-col bg-zinc-950">
-      {/* HERO */}
-      <div className="h-[360px] border-b border-white/10 overflow-hidden">
-        {observation?.photos?.[0] ? (
+    <div className="h-full flex flex-col bg-black">
+
+      {/* HERO — photo with gradient overlay + species name */}
+      <div className="relative h-[280px] shrink-0 overflow-hidden">
+        {photo ? (
           <img
-            src={observation.photos[0].url.replace("square", "large")}
+            src={photo.url.replace("square", "large")}
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-zinc-800" />
+          <div className="w-full h-full bg-white/[0.03]" />
         )}
-      </div>
 
-      {/* CONTENT */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={observation?.id ?? "empty"}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-          className="flex-1 overflow-y-auto p-5 space-y-6">
-          <div>
-            <h1 className="text-2xl font-semibold">
-              {taxon?.preferred_common_name ?? observation?.species_guess}
+        {/* Gradient vignette */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+
+        {/* Species name overlaid at bottom of hero */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={observation?.id ?? "empty-hero"}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="absolute bottom-0 left-0 right-0 p-5">
+            <h1 className="font-vietnam font-black text-3xl uppercase tracking-tighter leading-tight text-white">
+              {taxon?.preferred_common_name ?? observation?.species_guess ?? "Select a species"}
             </h1>
             {taxon?.name && (
-              <p className="italic text-zinc-400">{taxon.name}</p>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-white/35 mt-1">
+                {taxon.name}
+              </p>
             )}
-          </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
-          <Tabs key={observation?.id ?? "empty"} defaultValue="overview">
-            <TabsList
+      {/* TABS + CONTENT */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={observation?.id ?? "empty-content"}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          className="flex-1 overflow-y-auto flex flex-col">
+
+          <TabsPrimitive.Root defaultValue="overview" key={observation?.id ?? "empty"}>
+
+            {/* Tab triggers — line style */}
+            <TabsPrimitive.List
               className={cn(
-                "bg-zinc-900/80 p-1 rounded-lg border border-white/10 transition",
-                !hasSelection && "opacity-40 pointer-events-none",
+                "flex border-b border-white/[0.08] shrink-0",
+                !hasSelection && "opacity-30 pointer-events-none",
               )}>
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="details">Details</TabsTrigger>
-              <TabsTrigger value="media">Media</TabsTrigger>
-            </TabsList>
+              {TABS.map(({ value, label }) => (
+                <TabsPrimitive.Trigger
+                  key={value}
+                  value={value}
+                  className="flex-1 py-3.5 text-[10px] uppercase tracking-[0.2em] font-medium
+                             text-white/30 hover:text-white/60 transition-colors duration-200
+                             border-b-2 border-transparent -mb-px
+                             data-[state=active]:text-white data-[state=active]:border-white
+                             focus:outline-none">
+                  {label}
+                </TabsPrimitive.Trigger>
+              ))}
+            </TabsPrimitive.List>
 
-            <TabsContent value="overview" className="mt-4">
-              {observation ? <TabOverview observation={observation} /> : <OverviewSkeleton />}
-            </TabsContent>
+            {/* Tab content */}
+            <div className="p-5">
+              <TabsPrimitive.Content value="overview">
+                {observation ? <TabOverview observation={observation} /> : <OverviewSkeleton />}
+              </TabsPrimitive.Content>
 
-            <TabsContent value="details" className="mt-4">
-              {observation ? <TabDetails observation={observation} /> : <DetailsSkeleton />}
-            </TabsContent>
+              <TabsPrimitive.Content value="details">
+                {observation ? <TabDetails observation={observation} /> : <DetailsSkeleton />}
+              </TabsPrimitive.Content>
 
-            <TabsContent value="media" className="mt-4">
-              {observation ? <MediaTab observation={observation} /> : <MediaSkeleton />}
-            </TabsContent>
-          </Tabs>
+              <TabsPrimitive.Content value="media">
+                {observation ? <MediaTab observation={observation} /> : <MediaSkeleton />}
+              </TabsPrimitive.Content>
+            </div>
+
+          </TabsPrimitive.Root>
         </motion.div>
       </AnimatePresence>
     </div>
