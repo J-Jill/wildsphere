@@ -1,8 +1,10 @@
 # WildSphere
 
+**[Live demo → wildsphere.netlify.app](https://wildsphere.netlify.app/)**
+
 An interactive 3D globe that visualizes real-time wildlife observations from around the world. Click any hotspot on Earth to explore the species observed at that location — photos, taxonomy, coordinates, and Wikipedia links included.
 
-Data is sourced live from the [iNaturalist](https://www.inaturalist.org/) open API.
+Data is sourced live from the [iNaturalist](https://www.inaturalist.org/) open API. Deployed on [Netlify](https://netlify.com).
 
 ---
 
