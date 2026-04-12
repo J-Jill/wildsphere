@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { InatObservation } from "@/features/ObservationPanel/types/inaturalist";
+import type { InatObservation } from "@/features/observation-panel/types/inaturalist";
 
 type Props = {
   observation: Pick<InatObservation, "photos">;
@@ -15,7 +15,6 @@ export function MediaTab({ observation }: Props) {
 
   return (
     <div className="space-y-3">
-      {/* Main image */}
       <div className="w-full h-[340px] overflow-hidden rounded-xl border border-white/10">
         <img
           key={activePhoto.url}
@@ -25,7 +24,6 @@ export function MediaTab({ observation }: Props) {
         />
       </div>
 
-      {/* Thumbnails */}
       {photos.length > 1 && (
         <div className="flex gap-2 overflow-x-auto">
           {photos.map((photo, index) => {

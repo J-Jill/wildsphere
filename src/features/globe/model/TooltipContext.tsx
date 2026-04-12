@@ -16,7 +16,6 @@ export function TooltipProvider({ children }: { children: React.ReactNode }) {
     <TooltipContext.Provider value={{ tooltip, setTooltip }}>
       {children}
 
-      {/* Tooltip DOM fuera del Canvas */}
       {tooltip && (
         <div
           style={{
@@ -24,15 +23,8 @@ export function TooltipProvider({ children }: { children: React.ReactNode }) {
             left: tooltip.x,
             top: tooltip.y - 20,
             transform: "translate(-50%, -100%)",
-            background: "rgba(0,0,0,0.75)",
-            color: "white",
-            padding: "6px 10px",
-            borderRadius: "6px",
-            fontSize: "12px",
-            pointerEvents: "none",
-            zIndex: 9999,
-            whiteSpace: "nowrap",
-          }}>
+          }}
+          className="bg-black/75 text-white px-2.5 py-1.5 rounded-md text-xs pointer-events-none z-[9999] whitespace-nowrap">
           {tooltip.text}
         </div>
       )}

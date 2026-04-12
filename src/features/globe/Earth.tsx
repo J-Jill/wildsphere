@@ -1,7 +1,7 @@
 import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
 import { Hotspot } from "./Hotspot";
-import { useObservations } from "@/features/ObservationPanel/hooks/useObservations";
+import { useObservations } from "@/features/observation-panel/hooks/useObservations";
 import { memo } from "react";
 
 function EarthBase({ active }: { active: boolean }) {

@@ -1,4 +1,4 @@
-import type { InatObservation } from "@/features/ObservationPanel/types/inaturalist";
+import type { InatObservation } from "@/features/observation-panel/types/inaturalist";
 import {
   MapPin,
   Globe,
@@ -8,7 +8,7 @@ import {
   ExternalLink,
   BookOpen,
 } from "lucide-react";
-import { InfoItem } from "@/features/ObservationPanel/Tabs/InfoItem";
+import { InfoItem } from "@/features/observation-panel/ui/InfoItem";
 
 type Props = {
   observation: InatObservation;
@@ -56,9 +56,7 @@ export function TabDetails({ observation }: Props) {
         <InfoItem
           icon={<Globe size={16} />}
           label="Coordinates"
-          value={`${geojson.coordinates[1].toFixed(
-            3,
-          )}, ${geojson.coordinates[0].toFixed(3)}`}
+          value={`${geojson.coordinates[1].toFixed(3)}, ${geojson.coordinates[0].toFixed(3)}`}
         />
       )}
 

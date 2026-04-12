@@ -1,73 +1,77 @@
-# React + TypeScript + Vite
+# WildSphere
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive 3D globe that visualizes real-time wildlife observations from around the world. Click any hotspot on Earth to explore the species observed at that location — photos, taxonomy, coordinates, and Wikipedia links included.
 
-Currently, two official plugins are available:
+Data is sourced live from the [iNaturalist](https://www.inaturalist.org/) open API.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Interactive 3D Earth** — rotate and zoom a textured globe rendered with Three.js
+- **Live wildlife data** — 50 geolocated research-grade observations fetched on load
+- **Hotspot markers** — animated, pulsing points placed at exact observation coordinates
+- **Species panel** — tabbed detail view with Overview, Details, and Media tabs
+- **Smooth transitions** — Framer Motion animations on panel content and intro overlay
+- **Intro screen** — animated entry experience before the globe is revealed
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Category | Technology |
+|---|---|
+| Framework | React 19 + TypeScript |
+| Build | Vite 7 |
+| 3D Rendering | Three.js + React Three Fiber + Drei |
+| Styling | Tailwind CSS v4 |
+| Animation | Framer Motion |
+| Data Fetching | TanStack Query v5 |
+| UI Primitives | Radix UI |
+| Icons | Lucide React |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Architecture
+
+The project follows [Feature-Sliced Design (FSD)](https://feature-sliced.design/), a scalable frontend architecture that organizes code by business domain rather than technical role.
+
+```
+src/
+├── app/                         # App initialization, providers, global styles
+│   ├── layout/                  # AppShell, Topbar, LeftPanel
+│   ├── providers/               # QueryProvider
+│   └── styles/globals.css       # Centralized global styles + Tailwind entry
+├── features/
+│   ├── globe/                   # 3D Earth scene
+│   │   ├── model/               # TooltipContext
+│   │   ├── lib/                 # Coordinate math (latLng → Vector3)
+│   │   └── {GlobeScene, Earth, Hotspot, StarsBackground}.tsx
+│   ├── observation-panel/       # Species detail panel
+│   │   ├── api/                 # iNaturalist fetch function
+│   │   ├── hooks/               # useObservations (TanStack Query)
+│   │   ├── model/               # SelectionContext
+│   │   ├── types/               # InatObservation, InatTaxon, InatPhoto
+│   │   └── ui/                  # TabsPanel, tab content, skeletons
+│   └── intro/                   # Animated intro overlay
+└── shared/
+    ├── lib/utils.ts             # cn() utility
+    └── ui/                      # button, card, tabs, skeleton, scroll-area
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Getting Started
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
+
+Requires Node 18+. No environment variables needed — the iNaturalist API is public.
+
+---
+
+## Credits
+
+Wildlife observation data provided by [iNaturalist](https://www.inaturalist.org/) and its community of naturalists worldwide.

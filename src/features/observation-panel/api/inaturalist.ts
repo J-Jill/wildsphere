@@ -1,4 +1,4 @@
-import type { InatResponse } from "@/features/ObservationPanel/types/inaturalist";
+import type { InatResponse } from "@/features/observation-panel/types/inaturalist";
 
 const BASE_URL = "https://api.inaturalist.org/v1";
 

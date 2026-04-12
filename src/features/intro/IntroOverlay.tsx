@@ -1,4 +1,4 @@
-import { Button } from "@/share/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { motion } from "framer-motion";
 
 interface IntroOverlayProps {

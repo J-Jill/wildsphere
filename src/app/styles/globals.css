@@ -15,7 +15,6 @@ body,
   background-color: black;
   color: aliceblue;
 
-  /* Scrollbar minimalista y elegante */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -33,7 +32,6 @@ body,
     background: rgba(255, 255, 255, 0.25);
   }
 
-  /* Firefox */
   * {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.2) transparent;

@@ -1,4 +1,4 @@
-import { Skeleton } from "@/share/components/ui/skeleton";
+import { Skeleton } from "@/shared/ui/skeleton";
 
 function Row() {
   return (

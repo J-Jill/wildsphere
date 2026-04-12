@@ -1,4 +1,4 @@
-import type { InatObservation } from "@/features/ObservationPanel/types/inaturalist";
+import type { InatObservation } from "@/features/observation-panel/types/inaturalist";
 import { createContext, useContext, useState, type ReactNode } from "react";
 
 type SelectionContextType = {

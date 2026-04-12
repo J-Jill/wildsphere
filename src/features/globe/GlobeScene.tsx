@@ -3,7 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { Earth } from "./Earth";
-import { useObservations } from "../ObservationPanel/hooks/useObservations";
+import { useObservations } from "@/features/observation-panel/hooks/useObservations";
 import { StarsBackground } from "./StarsBackground";
 
 interface GlobeSceneProps {

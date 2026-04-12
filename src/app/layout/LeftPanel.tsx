@@ -1,5 +1,5 @@
-import { useSelection } from "@/context/SelectionContext";
-import { TabsPanel } from "@/features/ObservationPanel/Tabs/TabsPanel";
+import { useSelection } from "@/features/observation-panel/model/SelectionContext";
+import { TabsPanel } from "@/features/observation-panel/ui/TabsPanel";
 
 type LeftPanelProps = {
   isLoading: boolean;
@@ -12,7 +12,7 @@ export function LeftPanel({ isLoading, isError }: LeftPanelProps) {
   if (isError) {
     return (
       <div className="h-full flex items-center justify-center text-sm text-zinc-400 px-6 text-center">
-        We’re having trouble loading wildlife data right now.
+        We're having trouble loading wildlife data right now.
         <br />
         Please try again in a moment.
       </div>

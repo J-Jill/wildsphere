@@ -1,6 +1,6 @@
-import type { InatObservation } from "../../types/inaturalist";
+import type { InatObservation } from "@/features/observation-panel/types/inaturalist";
 import { Calendar, MapPin, Globe, BookOpen } from "lucide-react";
-import { InfoItem } from "@/features/ObservationPanel/Tabs/InfoItem";
+import { InfoItem } from "@/features/observation-panel/ui/InfoItem";
 
 type Props = {
   observation: InatObservation;
@@ -11,7 +11,6 @@ export function TabOverview({ observation }: Props) {
 
   return (
     <div className="space-y-6 text-sm">
-      {/* META */}
       <div className="space-y-3">
         {observation.observed_on && (
           <InfoItem
@@ -38,14 +37,10 @@ export function TabOverview({ observation }: Props) {
         )}
       </div>
 
-      {/* DESCRIPTION */}
       {observation.description && (
-        <p className="text-zinc-300 leading-relaxed">
-          {observation.description}
-        </p>
+        <p className="text-zinc-300 leading-relaxed">{observation.description}</p>
       )}
 
-      {/* LINKS */}
       {taxon?.wikipedia_url && (
         <a
           href={taxon.wikipedia_url}

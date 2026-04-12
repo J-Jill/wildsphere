@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./app/App";
 import { QueryProvider } from "./app/providers/QueryProvider";
+import { SelectionProvider } from "./features/observation-panel/model/SelectionContext";
 
-import "@/style/index.css";
-import { SelectionProvider } from "./context/SelectionContext";
+import "@/app/styles/globals.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

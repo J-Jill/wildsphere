@@ -1,10 +1,10 @@
 import { memo, useMemo, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { useSelection } from "@/context/SelectionContext";
-import { useTooltip } from "@/features/globe/context/TooltipContext";
-import { latLngToVector3 } from "@/features/globe/utils/geo";
-import type { InatObservation } from "@/features/ObservationPanel/types/inaturalist";
+import { useSelection } from "@/features/observation-panel/model/SelectionContext";
+import { useTooltip } from "@/features/globe/model/TooltipContext";
+import { latLngToVector3 } from "@/features/globe/lib/geo";
+import type { InatObservation } from "@/features/observation-panel/types/inaturalist";
 
 type HotspotProps = {
   observation: InatObservation;
