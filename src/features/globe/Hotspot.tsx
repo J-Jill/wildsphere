@@ -11,12 +11,13 @@ type HotspotProps = {
   active: boolean;
 };
 
-function HotspotBase({ observation, active }: HotspotProps) {
+function HotspotBase({ observation }: HotspotProps) {
   const { selectObservation } = useSelection();
   const { setTooltip } = useTooltip();
 
-  const ref = useRef<THREE.Mesh>(null!);
-  const materialRef = useRef<THREE.MeshStandardMaterial>(null!);
+  const dotRef = useRef<THREE.Mesh>(null!);
+  const pingRef = useRef<THREE.Mesh>(null!);
+  const pingMaterialRef = useRef<THREE.MeshBasicMaterial>(null!);
   const { camera, gl } = useThree();
 
   const [hovered, setHovered] = useState(false);
@@ -30,38 +31,35 @@ function HotspotBase({ observation, active }: HotspotProps) {
   }, [coords]);
 
   useFrame(({ clock, raycaster }) => {
-    if (!ref.current || !materialRef.current) return;
+    if (!dotRef.current || !pingRef.current || !pingMaterialRef.current) return;
 
-    // Animación del hotspot
-    const pulse = 1 + Math.sin(clock.getElapsedTime() * 2) * 0.2;
-    const scale = hovered ? 1.4 : active ? 1.2 : pulse;
-    ref.current.scale.setScalar(scale);
-    materialRef.current.emissiveIntensity = hovered ? 1.2 : 0.6;
+    // Core dot — scale up on hover
+    dotRef.current.scale.setScalar(hovered ? 1.6 : 1);
 
-    // 🔥 1. Detectar si el cursor sigue sobre el hotspot
-    const intersects = raycaster.intersectObject(ref.current);
-    const stillHovering = intersects.length > 0;
+    // Sonar ping — expands and fades in a loop
+    const t = (clock.getElapsedTime() % 2) / 2; // 0 → 1 every 2s
+    pingRef.current.scale.setScalar(1 + t * 4);
+    pingMaterialRef.current.opacity = (1 - t) * 0.4;
 
-    if (!stillHovering && hovered) {
+    // Detect if cursor is still hovering
+    const intersects = raycaster.intersectObject(dotRef.current);
+    if (!intersects.length && hovered) {
       setHovered(false);
       setTooltip(null);
       return;
     }
 
-    // 🔥 2. Si no está hovered, no hacemos nada más
     if (!hovered) return;
 
-    // 🔥 3. Si está hovered, actualizar posición del tooltip
-    const pos = ref.current.getWorldPosition(new THREE.Vector3()).clone();
+    // Update tooltip position
+    const pos = dotRef.current.getWorldPosition(new THREE.Vector3()).clone();
     pos.project(camera);
 
     const rect = gl.domElement.getBoundingClientRect();
-
     setTooltip({
       x: rect.left + (pos.x * 0.5 + 0.5) * rect.width,
       y: rect.top + (-pos.y * 0.5 + 0.5) * rect.height,
-      text:
-        observation.taxon?.preferred_common_name || observation.species_guess,
+      text: observation.taxon?.preferred_common_name || observation.species_guess,
     });
   });
 
@@ -69,8 +67,20 @@ function HotspotBase({ observation, active }: HotspotProps) {
 
   return (
     <group position={position}>
+      {/* Sonar ping ring */}
+      <mesh ref={pingRef}>
+        <sphereGeometry args={[0.013, 8, 8]} />
+        <meshBasicMaterial
+          ref={pingMaterialRef}
+          color="white"
+          transparent
+          opacity={0.4}
+        />
+      </mesh>
+
+      {/* Core dot */}
       <mesh
-        ref={ref}
+        ref={dotRef}
         onPointerEnter={() => {
           setHovered(true);
           document.body.style.cursor = "pointer";
@@ -78,16 +88,11 @@ function HotspotBase({ observation, active }: HotspotProps) {
         onPointerLeave={() => {
           setHovered(false);
           document.body.style.cursor = "default";
-          setTooltip(null); // 🔹 aquí lo limpiamos siempre
+          setTooltip(null);
         }}
         onClick={() => selectObservation(observation)}>
-        <sphereGeometry args={[0.02, 16, 16]} />
-        <meshStandardMaterial
-          ref={materialRef}
-          color="orange"
-          emissive="orange"
-          emissiveIntensity={0.6}
-        />
+        <sphereGeometry args={[0.013, 12, 12]} />
+        <meshBasicMaterial color="white" />
       </mesh>
     </group>
   );

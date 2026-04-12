@@ -1,24 +1,34 @@
+import { Stars } from "@react-three/drei";
+import { useLoader } from "@react-three/fiber";
+import { TextureLoader } from "three";
 import * as THREE from "three";
-import { useState } from "react";
 
 export function StarsBackground() {
-  const [geometry] = useState(() => {
-    const starCount = 2000;
-    const positions = new Float32Array(starCount * 3);
-
-    for (let i = 0; i < starCount * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 200;
-    }
-
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-
-    return geo;
-  });
+  const texture = useLoader(TextureLoader, "/textures/2k_stars_milky_way.jpg");
 
   return (
-    <points geometry={geometry}>
-      <pointsMaterial size={0.15} color="#ffffff" sizeAttenuation />
-    </points>
+    <>
+      {/* Milky Way nebula — subtle base layer */}
+      <mesh>
+        <sphereGeometry args={[90, 32, 32]} />
+        <meshBasicMaterial
+          map={texture}
+          side={THREE.BackSide}
+          transparent
+          opacity={0.4}
+        />
+      </mesh>
+
+      {/* Crisp individual stars on top */}
+      <Stars
+        radius={80}
+        depth={40}
+        count={6000}
+        factor={2.5}
+        saturation={0}
+        fade
+        speed={0}
+      />
+    </>
   );
 }
