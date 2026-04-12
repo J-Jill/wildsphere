@@ -15,7 +15,7 @@ export function MediaTab({ observation }: Props) {
 
   return (
     <div className="space-y-3">
-      <div className="w-full h-[340px] overflow-hidden rounded-xl border border-white/10">
+      <div className="w-full h-[340px] overflow-hidden rounded-xl border border-stroke">
         <img
           key={activePhoto.url}
           src={activePhoto.url.replace("square", "large")}
@@ -32,17 +32,12 @@ export function MediaTab({ observation }: Props) {
               <button
                 key={photo.url}
                 onClick={() => setActiveIndex(index)}
-                className={`h-16 w-16 shrink-0 overflow-hidden rounded-lg border transition
-                ${
-                  isActive
-                    ? "border-white"
-                    : "border-white/10 opacity-70 hover:opacity-100"
-                }`}>
-                <img
-                  src={photo.url}
-                  alt=""
-                  className="h-full w-full object-cover"
-                />
+                className={`h-16 w-16 shrink-0 overflow-hidden rounded-lg border transition-all duration-200
+                  ${isActive
+                    ? "border-white opacity-100"
+                    : "border-stroke opacity-50 hover:opacity-80"
+                  }`}>
+                <img src={photo.url} alt="" className="h-full w-full object-cover" />
               </button>
             );
           })}

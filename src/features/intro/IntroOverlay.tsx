@@ -19,27 +19,24 @@ export function IntroOverlay({ onEnter }: IntroOverlayProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}>
 
-        {/* Eyebrow */}
         <motion.p
-          className="text-[10px] uppercase tracking-[0.35em] text-white/30"
+          className="text-[10px] uppercase tracking-[0.35em] text-fg-3"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.25, duration: 0.6 }}>
           Earth's Biodiversity
         </motion.p>
 
-        {/* Title */}
         <motion.h1
-          className="font-vietnam font-black text-8xl uppercase tracking-tighter leading-[0.9] text-white"
+          className="font-vietnam font-black text-8xl uppercase tracking-tighter leading-[0.9] text-fg-1"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}>
           Wild<br />Sphere
         </motion.h1>
 
-        {/* Description */}
         <motion.p
-          className="text-white/45 text-base leading-relaxed max-w-xs"
+          className="text-fg-2 text-base leading-relaxed max-w-xs"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}>
@@ -47,7 +44,6 @@ export function IntroOverlay({ onEnter }: IntroOverlayProps) {
           from the iNaturalist community.
         </motion.p>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -55,16 +51,15 @@ export function IntroOverlay({ onEnter }: IntroOverlayProps) {
           <Button
             onClick={onEnter}
             className="rounded-none px-8 h-11 text-[11px] uppercase tracking-[0.2em] font-medium
-                       bg-transparent border border-white/25 text-white
+                       bg-transparent border border-stroke-2 text-fg-1
                        hover:bg-white hover:text-black hover:border-white
                        transition-all duration-300">
             Explore
           </Button>
         </motion.div>
 
-        {/* Footer */}
         <motion.p
-          className="text-[10px] uppercase tracking-[0.2em] text-white/20"
+          className="text-[10px] uppercase tracking-[0.2em] text-fg-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.85, duration: 0.8 }}>
@@ -73,7 +68,7 @@ export function IntroOverlay({ onEnter }: IntroOverlayProps) {
             href="https://www.inaturalist.org/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-white/50 transition-colors">
+            className="hover:text-fg-2 transition-colors">
             iNaturalist
           </a>
         </motion.p>

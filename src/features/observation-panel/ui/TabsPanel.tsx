@@ -27,7 +27,7 @@ export function TabsPanel({ observation, hasSelection }: TabsPanelProps) {
   return (
     <div className="h-full flex flex-col bg-black">
 
-      {/* HERO — photo with gradient overlay + species name */}
+      {/* HERO */}
       <div className="relative h-[280px] shrink-0 overflow-hidden">
         {photo ? (
           <img
@@ -35,13 +35,11 @@ export function TabsPanel({ observation, hasSelection }: TabsPanelProps) {
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-white/[0.03]" />
+          <div className="w-full h-full bg-surface" />
         )}
 
-        {/* Gradient vignette */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
 
-        {/* Species name overlaid at bottom of hero */}
         <AnimatePresence mode="wait">
           <motion.div
             key={observation?.id ?? "empty-hero"}
@@ -50,11 +48,11 @@ export function TabsPanel({ observation, hasSelection }: TabsPanelProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="absolute bottom-0 left-0 right-0 p-5">
-            <h1 className="font-vietnam font-black text-3xl uppercase tracking-tighter leading-tight text-white">
+            <h1 className="font-vietnam font-black text-3xl uppercase tracking-tighter leading-tight text-fg-1">
               {taxon?.preferred_common_name ?? observation?.species_guess ?? "Select a species"}
             </h1>
             {taxon?.name && (
-              <p className="text-[10px] uppercase tracking-[0.2em] text-white/35 mt-1">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-fg-3 mt-1">
                 {taxon.name}
               </p>
             )}
@@ -73,11 +71,9 @@ export function TabsPanel({ observation, hasSelection }: TabsPanelProps) {
           className="flex-1 overflow-y-auto flex flex-col">
 
           <TabsPrimitive.Root defaultValue="overview" key={observation?.id ?? "empty"}>
-
-            {/* Tab triggers — line style */}
             <TabsPrimitive.List
               className={cn(
-                "flex border-b border-white/[0.08] shrink-0",
+                "flex border-b border-stroke shrink-0",
                 !hasSelection && "opacity-30 pointer-events-none",
               )}>
               {TABS.map(({ value, label }) => (
@@ -85,30 +81,26 @@ export function TabsPanel({ observation, hasSelection }: TabsPanelProps) {
                   key={value}
                   value={value}
                   className="flex-1 py-3.5 text-[10px] uppercase tracking-[0.2em] font-medium
-                             text-white/30 hover:text-white/60 transition-colors duration-200
+                             text-fg-3 hover:text-fg-2 transition-colors duration-200
                              border-b-2 border-transparent -mb-px
-                             data-[state=active]:text-white data-[state=active]:border-white
+                             data-[state=active]:text-fg-1 data-[state=active]:border-white
                              focus:outline-none">
                   {label}
                 </TabsPrimitive.Trigger>
               ))}
             </TabsPrimitive.List>
 
-            {/* Tab content */}
             <div className="p-5">
               <TabsPrimitive.Content value="overview">
                 {observation ? <TabOverview observation={observation} /> : <OverviewSkeleton />}
               </TabsPrimitive.Content>
-
               <TabsPrimitive.Content value="details">
                 {observation ? <TabDetails observation={observation} /> : <DetailsSkeleton />}
               </TabsPrimitive.Content>
-
               <TabsPrimitive.Content value="media">
                 {observation ? <MediaTab observation={observation} /> : <MediaSkeleton />}
               </TabsPrimitive.Content>
             </div>
-
           </TabsPrimitive.Root>
         </motion.div>
       </AnimatePresence>

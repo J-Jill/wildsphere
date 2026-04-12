@@ -23,22 +23,16 @@ export function TabOverview({ observation }: Props) {
         )}
 
         {observation.place_guess && (
-          <InfoItem
-            label="Location"
-            value={observation.place_guess}
-          />
+          <InfoItem label="Location" value={observation.place_guess} />
         )}
 
         {taxon?.iconic_taxon_name && (
-          <InfoItem
-            label="Group"
-            value={taxon.iconic_taxon_name}
-          />
+          <InfoItem label="Group" value={taxon.iconic_taxon_name} />
         )}
       </div>
 
       {observation.description && (
-        <p className="text-white/50 leading-relaxed text-sm">
+        <p className="text-fg-2 leading-relaxed text-sm">
           {observation.description}
         </p>
       )}
@@ -48,7 +42,7 @@ export function TabOverview({ observation }: Props) {
           href={taxon.wikipedia_url}
           target="_blank"
           rel="noreferrer"
-          className="inline-block text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-white transition-colors duration-200">
+          className="inline-block text-[10px] uppercase tracking-[0.2em] text-fg-3 hover:text-fg-1 transition-colors duration-200">
           Wikipedia →
         </a>
       )}

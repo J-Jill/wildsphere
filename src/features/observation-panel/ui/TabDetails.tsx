@@ -31,10 +31,7 @@ export function TabDetails({ observation }: Props) {
       )}
 
       {place_guess && (
-        <InfoItem
-          label="Location"
-          value={place_guess}
-        />
+        <InfoItem label="Location" value={place_guess} />
       )}
 
       {geojson?.coordinates && (
@@ -52,7 +49,7 @@ export function TabDetails({ observation }: Props) {
               href={observation.uri.toString()}
               target="_blank"
               rel="noreferrer"
-              className="text-white/60 hover:text-white underline underline-offset-2 transition-colors">
+              className="text-fg-2 hover:text-fg-1 underline underline-offset-2 transition-colors">
               View observation →
             </a>
           }
@@ -67,7 +64,7 @@ export function TabDetails({ observation }: Props) {
               href={taxon.wikipedia_url}
               target="_blank"
               rel="noreferrer"
-              className="text-white/60 hover:text-white underline underline-offset-2 transition-colors">
+              className="text-fg-2 hover:text-fg-1 underline underline-offset-2 transition-colors">
               Learn more about this species →
             </a>
           }
